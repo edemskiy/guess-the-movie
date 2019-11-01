@@ -10,8 +10,40 @@
     color: black;
 }
 
-.popup-footer{
+.popup-window {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+
+    border: 3px solid black;
+}
+
+.popup-window h3 {
+    margin: 10px;
+    font-weight: 300;
+}
+
+.popup-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.popup-footer-btn {
+    width: 150px;
+    margin: 5px;
+    background-color: #4a67d0;
+    border: 2px solid rgb(0, 0, 0);
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 300;
+    font-size: 24px;
+}
+
+.popup-footer-btn:hover {
+    background-color: #2547c0;
 }

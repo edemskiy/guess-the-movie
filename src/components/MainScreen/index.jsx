@@ -12,7 +12,7 @@ class MainScreen extends Component {
 
         <div className='menu'>
           <Link to={'/play'}>
-            <button className='btn'>PLAY</button>
+            <button>PLAY</button>
           </Link>
         </div>        
       </div>

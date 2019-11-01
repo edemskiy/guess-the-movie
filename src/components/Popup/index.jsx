@@ -4,34 +4,26 @@ import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 
 class Popup extends Component {
-  constructor(props){
-      super(props);
-  }
-
   render() {
     const { startNewGame, ...rest } = this.props;
     return (
         <Modal
         {...rest}
-        size="lg"
+        // size="md"
         aria-labelledby="popup-window"
         centered
         >
-          <Modal.Header>
-            <Modal.Title id="popup-window">
-              Game Over
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>Your score: {this.props.score}</h4>
+          <div className="popup-window">
+            <h3>the game is over ¯\_(ツ)_/¯</h3>
+            <h1 className="display-4">Your score: {this.props.score}</h1>
             
-          </Modal.Body>
-          <Modal.Footer>
-            <button onClick={this.props.startNewGame}>Play again</button>
-            <Link to={'/'}>
-              <button>Exit</button>
-            </Link>
-          </Modal.Footer>
+            <div className="popup-footer">
+              <button className="popup-footer-btn" onClick={this.props.startNewGame}>Play again</button>
+              <Link to={'/'}>
+                <button className="popup-footer-btn">Exit</button>
+              </Link>
+            </div>
+          </div>
         </Modal>
     );
   }
