@@ -1,1 +1,1 @@
-export const timeToAnswer = 15;
+export const timeToAnswer = 10;
