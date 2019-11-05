@@ -27,6 +27,7 @@ class GameScreen extends Component {
           score: 0,
           timer: timeToAnswer,
           startTime: Date.now(),
+          answerIsGiven: false,
           showPopup: false
       }
       this.getNewQuestion();
@@ -42,9 +43,10 @@ class GameScreen extends Component {
       score: 0,
       timer: timeToAnswer,
       startTime: Date.now(),
+      answerIsGiven: false,
       showPopup: false
     })
-    this.getNewQuestion();
+    this.getNewQuestion();   
   }
 
   startCountdown(){
@@ -69,12 +71,12 @@ class GameScreen extends Component {
         this.setState({
           question: data,
           timer: timeToAnswer,
-          startTime: Date.now()
+          startTime: Date.now(),
+          answerIsGiven: false
         });
-
-        this.resetChoisesColors();
-        this.startCountdown();
         
+        this.resetChoisesColors();
+        this.startCountdown(); 
         setTimeout( () => this.progressbar.current.classList.remove('notransition'), 0);        
       });
   }
@@ -86,8 +88,12 @@ class GameScreen extends Component {
   }
 
   checkAnswer(e){
+    if(this.state.answerIsGiven) return;
+    
     //stop countdown
     clearInterval(this.timer);
+
+    this.setState({ answerIsGiven: true });
     
     const clickedButton = e.target;
     
@@ -164,7 +170,6 @@ class GameScreen extends Component {
                 {title}
               </button>)
           }
-
           </div>
         </div>
       </div>
