@@ -1,86 +1,84 @@
 .game-container {
-    height:100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .content {
-    /* width: 25%; */
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
+  /* width: 25%; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
-.score{
-    font-weight: 300;
-    font-size: 36px;
-    margin: 5px;
+.score {
+  font-weight: 300;
+  font-size: 36px;
+  margin: 5px;
 }
 
 .image {
-    width:100%;
-    border: 1px solid black;
-    border-radius: 20px;
-    padding: 2px;
-    background: white;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 2px;
+  background: white;
 }
 
-.image img{
-    width: 100%;
-    border-radius: 20px;
+.image img {
+  width: 100%;
+  border-radius: 20px;
 }
 
 .countdown {
-    height: 10px;
-    width: 95%;
-    margin-bottom: 5px;
+  height: 10px;
+  width: 95%;
+  margin-bottom: 5px;
 }
 
 .countdown .progress {
-    height: 10px;
+  height: 10px;
 }
 
 .countdown .progress-bar {
-    width: 100%;
-    background-color: #555fc7;
+  width: 100%;
+  background-color: #555fc7;
 }
 
 .notransition {
-    transition: none !important;
-  }
+  transition: none !important;
+}
 
 .choises {
-    margin: 5px 0;
-    width:100%;
-    display:grid;
-    grid-template-columns: 49% 49%;
-    grid-auto-rows: 1fr;
-    gap: 5% 2%;
+  margin: 5px 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-auto-rows: 1fr;
+  gap: 5% 2%;
 }
 
-.choises button {    
-    width:100%;
-    background-color: #42434d;
-    border: 2px solid rgb(255, 255, 255);
-    color: white;
-    border-radius: 5px;
-    padding: 10px;
-    font-weight: 300;
-    font-size: 24px;
+.choises button {
+  width: 100%;
+  background-color: #42434d;
+  border: 2px solid rgb(255, 255, 255);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: 300;
+  font-size: 24px;
 }
-.btn-right{
-    background-color: #078537 !important;    
+.btn-right {
+  background-color: #078537 !important;
 }
 
 .btn-wrong {
-    background-color: #900909 !important;
+  background-color: #900909 !important;
 }
 
 .choises button:hover {
-    
-    background-color: rgba(50, 68, 92, 0.377);
-   
+  background-color: rgba(50, 68, 92, 0.377);
 }

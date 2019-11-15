@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import MainScreen from '../MainScreen/index';
-import GameScreen from '../GameScreen';
-import Settings from '../Settings';
-import './App.css'
+import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
+import MainScreen from "../MainScreen/index";
+import GameScreen from "../GameScreen";
+import Settings from "../Settings";
+import "./App.css";
 
 class App extends Component {
   render() {

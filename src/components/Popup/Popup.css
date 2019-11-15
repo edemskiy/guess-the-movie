@@ -1,49 +1,49 @@
 .popup-background {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .popup-window {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }
 
 .popup-window {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-evenly;
 
-    border: 3px solid black;
+  border: 3px solid black;
 }
 
 .popup-window h3 {
-    margin: 10px;
-    font-weight: 300;
+  margin: 10px;
+  font-weight: 300;
 }
 
 .popup-footer {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px;
 }
 
 .popup-footer-btn {
-    width: 150px;
-    margin: 5px;
-    background-color: #4a67d0;
-    border: 2px solid rgb(0, 0, 0);
-    color: white;
-    border-radius: 5px;
-    padding: 10px;
-    font-weight: 300;
-    font-size: 24px;
+  width: 150px;
+  margin: 5px;
+  background-color: #4a67d0;
+  border: 2px solid rgb(0, 0, 0);
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: 300;
+  font-size: 24px;
 }
 
 .popup-footer-btn:hover {
-    background-color: #2547c0;
+  background-color: #2547c0;
 }
