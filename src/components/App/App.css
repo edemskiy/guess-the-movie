@@ -3,7 +3,7 @@
   height: 100vh;
   position: fixed;
   z-index: -1;
-  background: linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.92)),
+  background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
     url("../../images/background.jpg") center top no-repeat;
   background-size: cover;
 }
