@@ -3,7 +3,7 @@ import "./GameScreen.css";
 
 import Popup from "../Popup";
 
-import { timeToAnswer } from "../../constants/game";
+import { timeToAnswer, newQuestionUrl } from "../../constants/game";
 
 class GameScreen extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class GameScreen extends Component {
   }
 
   getNewQuestion() {
-    fetch("http://localhost:5000/question")
+    fetch(newQuestionUrl)
       .then(response => response.json())
       .then(data => {
         this.progressbar.current.classList.add("notransition");
