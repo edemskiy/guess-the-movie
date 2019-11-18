@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./GameScreen.css";
 
 import Popup from "../Popup";
+import Spinner from "react-bootstrap/Spinner";
 
 import { timeToAnswer, newQuestionUrl } from "../../constants/game";
 
@@ -24,6 +25,7 @@ class GameScreen extends Component {
         imageURL: "",
         answer: ""
       },
+      isQuestionLoading: true,
       score: 0,
       timer: timeToAnswer,
       startTime: Date.now(),
@@ -40,6 +42,7 @@ class GameScreen extends Component {
         imageURL: "",
         answer: ""
       },
+      isQuestionLoading: true,
       score: 0,
       timer: timeToAnswer,
       startTime: Date.now(),
@@ -63,24 +66,28 @@ class GameScreen extends Component {
   }
 
   getNewQuestion() {
+    if (!this.state.isQuestionLoading) {
+      // this.progressbar.current.classList.add("notransition");
+      this.resetChoisesColors();
+
+      // setTimeout(
+      //   () => this.progressbar.current.classList.remove("notransition"),
+      //   0
+      // );
+      this.setState({ isQuestionLoading: true });
+    }
+
     fetch(newQuestionUrl)
       .then(response => response.json())
       .then(data => {
-        this.progressbar.current.classList.add("notransition");
-
         this.setState({
           question: data,
+          isQuestionLoading: false,
           timer: timeToAnswer,
           startTime: Date.now(),
           answerIsGiven: false
         });
-
-        this.resetChoisesColors();
         this.startCountdown();
-        setTimeout(
-          () => this.progressbar.current.classList.remove("notransition"),
-          0
-        );
       });
   }
 
@@ -144,32 +151,42 @@ class GameScreen extends Component {
           />
           <div className="score">Score: {this.state.score}</div>
 
-          <div className="image">
-            <img src={this.state.question.imageURL} alt="" />
-          </div>
+          {this.state.isQuestionLoading ? (
+            <Spinner animation="border" />
+          ) : (
+            <div className="question">
+              <div className="image">
+                <img src={this.state.question.imageURL} alt="" />
+              </div>
 
-          <div className="countdown">
-            <div className="progress">
-              <div
-                className="progress-bar"
-                ref={this.progressbar}
-                style={{ width: `${this.state.timer * (100 / timeToAnswer)}%` }}
-              ></div>
+              <div className="countdown">
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    ref={this.progressbar}
+                    style={{
+                      width: `${this.state.timer * (100 / timeToAnswer)}%`
+                    }}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="choises" ref={this.choises}>
+                {Object.values(this.state.question.choises).map((title, i) => (
+                  <button
+                    ref={
+                      title === this.state.question.answer && this.answerButton
+                    }
+                    onClick={this.checkAnswer}
+                    key={i}
+                    value={title}
+                  >
+                    {title}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div className="choises" ref={this.choises}>
-            {Object.values(this.state.question.choises).map((title, i) => (
-              <button
-                ref={title === this.state.question.answer && this.answerButton}
-                onClick={this.checkAnswer}
-                key={i}
-                value={title}
-              >
-                {title}
-              </button>
-            ))}
-          </div>
+          )}
         </div>
       </div>
     );

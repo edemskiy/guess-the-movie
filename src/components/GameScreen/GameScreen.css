@@ -19,6 +19,12 @@
   margin: 5px;
 }
 
+.question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .image {
   max-width: 100%;
   border: 1px solid black;
@@ -63,11 +69,12 @@
 
 .choises button {
   width: 100%;
+  min-height: 50px;
   background-color: #42434d;
   border: 2px solid rgb(255, 255, 255);
   color: white;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
   font-weight: 300;
   font-size: 16px;
   outline: none;
