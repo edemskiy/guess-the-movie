@@ -8,6 +8,27 @@
   text-align: center;
   color: white;
 }
+
+@media screen and (max-width: 765px) {
+  .main-screen h1 {
+    font-size: 10vw;
+  }
+  .main-screen h2 {
+    font-size: 5vw;
+  }
+  .menu button {
+    width: 150px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 765px) {
+  .menu button {
+    width: 250px;
+    font-size: 36px;
+  }
+}
+
 .main-screen h2 {
   font-weight: 300;
 }
@@ -21,11 +42,9 @@
 }
 
 .menu button {
-  width: 300px;
   padding: 15px;
   background-color: #4a67d0;
   border: 2px solid white;
-  font-size: 36px;
   color: #fff;
   font-weight: 300;
 }
