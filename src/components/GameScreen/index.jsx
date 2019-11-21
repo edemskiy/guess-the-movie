@@ -67,13 +67,7 @@ class GameScreen extends Component {
 
   getNewQuestion() {
     if (!this.state.isQuestionLoading) {
-      // this.progressbar.current.classList.add("notransition");
       this.resetChoisesColors();
-
-      // setTimeout(
-      //   () => this.progressbar.current.classList.remove("notransition"),
-      //   0
-      // );
       this.setState({ isQuestionLoading: true });
     }
 
