@@ -50,13 +50,6 @@ class GameScreen extends Component {
     fetch(newQuestionUrl)
       .then(response => response.json())
       .then(data => {
-        this.setState({
-          question: data,
-          isQuestionLoading: false,
-          timer: timeToAnswer,
-          startTime: Date.now(),
-          answerIsGiven: false
-        });
         this.props.changeQuestion(data);
         this.props.changeQuestionLoadingStatus(false);
         this.props.setStartTime(Date.now());
