@@ -10,7 +10,7 @@ class Popup extends Component {
       <Modal {...rest} aria-labelledby="popup-window" centered>
         <div className="popup-window">
           <h3>the game is over ¯\_(ツ)_/¯</h3>
-          <h1 className>Your score: {this.props.score}</h1>
+          <h1>Your score: {this.props.score}</h1>
 
           <div className="popup-footer">
             <button

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import "./GameScreen.css";
 
 import Popup from "../Popup";
 import Spinner from "react-bootstrap/Spinner";
 
 import { timeToAnswer, newQuestionUrl } from "../../constants/game";
+import * as Actions from "../../actions/game";
 
 class GameScreen extends Component {
   constructor(props) {
@@ -18,47 +20,21 @@ class GameScreen extends Component {
     this.choises = React.createRef();
     this.answerButton = React.createRef();
     this.popup = React.createRef();
-
-    this.state = {
-      question: {
-        choises: [],
-        imageURL: "",
-        answer: ""
-      },
-      isQuestionLoading: true,
-      score: 0,
-      timer: timeToAnswer,
-      startTime: Date.now(),
-      answerIsGiven: false,
-      showPopup: false
-    };
-    this.getNewQuestion();
+  }
+  componentDidMount() {
+    this.startNewGame();
   }
 
   startNewGame() {
-    this.setState({
-      question: {
-        choises: [],
-        imageURL: "",
-        answer: ""
-      },
-      isQuestionLoading: true,
-      score: 0,
-      timer: timeToAnswer,
-      startTime: Date.now(),
-      answerIsGiven: false,
-      showPopup: false
-    });
+    this.props.resetGame();
     this.getNewQuestion();
   }
 
   startCountdown() {
     this.timer = setInterval(() => {
-      this.setState(state => ({
-        timer: timeToAnswer - (Date.now() - state.startTime) / 1000
-      }));
+      this.props.updateTimer();
 
-      if (this.state.timer <= 0) {
+      if (this.props.timer <= 0) {
         clearInterval(this.timer);
         this.gameOver();
       }
@@ -66,9 +42,9 @@ class GameScreen extends Component {
   }
 
   getNewQuestion() {
-    if (!this.state.isQuestionLoading) {
+    if (!this.props.isQuestionLoading) {
       this.resetChoisesColors();
-      this.setState({ isQuestionLoading: true });
+      this.props.changeQuestionLoadingStatus(true);
     }
 
     fetch(newQuestionUrl)
@@ -81,6 +57,10 @@ class GameScreen extends Component {
           startTime: Date.now(),
           answerIsGiven: false
         });
+        this.props.changeQuestion(data);
+        this.props.changeQuestionLoadingStatus(false);
+        this.props.setStartTime(Date.now());
+        this.props.changeAnswerIsGivenStatus(false);
         this.startCountdown();
       });
   }
@@ -92,19 +72,19 @@ class GameScreen extends Component {
   }
 
   checkAnswer(e) {
-    if (this.state.answerIsGiven) return;
+    if (this.props.answerIsGiven) return;
 
     //stop countdown
     clearInterval(this.timer);
 
-    this.setState({ answerIsGiven: true });
+    this.props.changeAnswerIsGivenStatus(true);
 
     const clickedButton = e.target;
 
     //if the answer is correct
-    if (clickedButton.value === this.state.question.answer) {
+    if (clickedButton.value === this.props.question.answer) {
       // increment the score
-      this.setState(state => ({ score: state.score + 1 }));
+      this.props.incrementScore();
 
       //highlight button with green
       clickedButton.classList.add("btn-right");
@@ -128,29 +108,29 @@ class GameScreen extends Component {
     this.answerButton.current.classList.add("btn-right");
 
     // show game result
-    this.setState({
-      showPopup: true
-    });
+    this.props.changeShowPopupStatus(true);
   }
 
   render() {
     return (
       <div className="game-container container">
         <div className="content">
-          <Popup
-            score={this.state.score}
-            show={this.state.showPopup}
-            startNewGame={this.startNewGame}
-            onHide={() => {}}
-          />
-          <div className="score">Score: {this.state.score}</div>
+          {
+            <Popup
+              score={this.props.score}
+              show={this.props.showPopup}
+              startNewGame={this.startNewGame}
+              onHide={() => {}}
+            />
+          }
+          <div className="score">Score: {this.props.score}</div>
 
-          {this.state.isQuestionLoading ? (
+          {this.props.isQuestionLoading ? (
             <Spinner animation="border" />
           ) : (
             <div className="question">
               <div className="image">
-                <img src={this.state.question.imageURL} alt="" />
+                <img src={this.props.question.imageURL} alt="" />
               </div>
 
               <div className="countdown">
@@ -159,17 +139,17 @@ class GameScreen extends Component {
                     className="progress-bar"
                     ref={this.progressbar}
                     style={{
-                      width: `${this.state.timer * (100 / timeToAnswer)}%`
+                      width: `${this.props.timer * (100 / timeToAnswer)}%`
                     }}
                   ></div>
                 </div>
               </div>
 
               <div className="choises" ref={this.choises}>
-                {Object.values(this.state.question.choises).map((title, i) => (
+                {Object.values(this.props.question.choises).map((title, i) => (
                   <button
                     ref={
-                      title === this.state.question.answer && this.answerButton
+                      title === this.props.question.answer && this.answerButton
                     }
                     onClick={this.checkAnswer}
                     key={i}
@@ -187,4 +167,22 @@ class GameScreen extends Component {
   }
 }
 
-export default GameScreen;
+const MapStateToProps = state => ({
+  ...state.game
+});
+
+const MapDispatchToProps = dispatch => ({
+  changeQuestion: question => dispatch(Actions.changeQuestion(question)),
+  changeQuestionLoadingStatus: status =>
+    dispatch(Actions.changeQuestionLoadingStatus(status)),
+  incrementScore: () => dispatch(Actions.incrementScore()),
+  updateTimer: () => dispatch(Actions.updateTimer()),
+  setStartTime: dateTime => dispatch(Actions.setStartTime(dateTime)),
+  changeAnswerIsGivenStatus: status =>
+    dispatch(Actions.changeAnswerIsGivenStatus(status)),
+  changeShowPopupStatus: status =>
+    dispatch(Actions.changeShowPopupStatus(status)),
+  resetGame: () => dispatch(Actions.resetGame())
+});
+
+export default connect(MapStateToProps, MapDispatchToProps)(GameScreen);
